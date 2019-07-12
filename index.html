@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Magic Square</title>
+    <link rel="stylesheet" href="css/bulma/css/bulma.min.css">
+    <script defer src="css/fontawesome/js/all.js"></script>
+    <script src="js/jquery.min.js"></script>
+  </head>
+  <body>
+    <section class="hero is-info is-bold">
+        <div class="hero-body">
+          <div class="container has-text-centered">
+            <h1 class="title">
+              Magic Square
+            </h1>
+            <h2 class="subtitle">
+              Magic Square Generator
+            </h2>
+          </div>
+        </div>
+      </section><br>
+    <style>
+    .table {
+      margin-left: auto;
+      margin-right: auto;
+    }
+    </style>
+		<div class="container is-fluid" >
+		  <div class="notification is-bold">
+		  	<div class="field">
+			  <label class="label">Row Number:</label>
+			  <div class="control">
+			    <input class="input" type="number" id="number" placeholder="Number">
+			  </div>
+			</div>
+		    <a class="button is-medium is-fullwidth is-success">Generate</a><br>
+		    <table class="table is-bordered">
+			  <tbody id="tbody"class="is-size-1">
+			  </tbody>
+			</table>
+		  </div>
+		</div>
+  </body>
+
+  <br>
+
+  <footer class="footer">
+        <div class="content has-text-centered">
+          <p>
+            Coded With <span class="icon has-text-danger"><i class="fas fa-heart"></i></span> by SeedPuller
+          </p>
+        </div>
+    </footer>
+
+</html>
+
+<script>
+
+
+var n ;
+$(".button").click(function(){
+	n = $("#number").val();
+	n = parseInt(n);
+	$("#tbody").html("");
+	magic_square();
+});
+function magic_square(){
+	for(var c = 1; c <= n; c++){
+		$(".table").append("<tr id='" + c + "'>");
+		for(var r = 1; r <= n; r++){
+			$("#" + c).append(
+				"<td id='" + c.toString() + r.toString() + "'>"+ "*" + "</td>");
+		}
+		$(".table").append("</tr>");
+	}
+	$("td").addClass("has-text-centered");
+
+	//$("td").hide();
+	if(n % 4 == 0){
+		var numbers = n*n;
+		var i = 1;
+		var j = 1;
+		var c = 1;
+		var zarbdar1 = setInterval(function(){
+			//alert(i);
+			$("#" + j.toString() + i.toString()).fadeOut("fast");
+			$("#" + j.toString() + i.toString()).html("×");
+			$("#" + j.toString() + i.toString()).fadeIn(3000);
+			i++;
+			j++;
+			if(c == n){
+				clearInterval(zarbdar1);
+					i = n;
+					j = 1;
+					c = 0;
+					var zarbdar2 = setInterval(function(){
+						//alert(c);
+						$("#" + j.toString() + i.toString()).fadeOut("fast");
+						$("#" + j.toString() + i.toString()).html("×");
+						$("#" + j.toString() + i.toString()).fadeIn(3000);
+						i--;
+						j++;
+						if(c == n){
+							clearInterval(zarbdar2);
+							var num = 1;
+							i = 1;
+							j = 1;
+							var cn = 1;						
+							var adad1 = setInterval(function(){
+								//alert(cn);
+
+								var past_val = $("#" + j.toString() + i.toString()).html();
+								//alert(j.toString() + i.toString());							
+								if(past_val !== "×"){
+									$("#" + j.toString() + i.toString()).fadeOut("fast");
+									$("#" + j.toString() + i.toString()).html(num);
+									$("#" + j.toString() + i.toString()).fadeIn(3000);
+								}
+								//alert(j.toString() + i.toString());
+								num++;
+								i++;
+								if(cn % n == 0){
+									j++;
+									i = 1;
+								}							
+								if(cn == numbers){
+									clearInterval(adad1);
+										var num2 = 1;
+										i = n;
+										j = n;
+										var cn2 = 1;
+										var adad2 = setInterval(function(){
+										
+											var past_val = $("#" + j.toString() + i.toString()).html();
+											if(past_val == "×"){
+												$("#" + j.toString() + i.toString()).fadeOut("fast");
+												$("#" + j.toString() + i.toString()).html(num2);
+												$("#" + j.toString() + i.toString()).css('color', 'red');
+												$("#" + j.toString() + i.toString()).fadeIn(3000);
+											}
+											num2++;
+											i--;
+											if(cn2 % n == 0){
+												j--;
+												i = n;
+											}	
+											if(cn2 == numbers){
+												clearInterval(adad2);
+											}
+											cn2++;
+
+										}, 500);
+								}	
+								cn++;
+							}, 500);							
+						}
+						c++;
+					}, 1000);
+			}
+			c++;
+		}, 1000);
+
+		// for(var c = 1; c <= numbers; c++){
+		// 	$("#" + j.toString() + i.toString()).fadeOut("fast");
+		// 	$("#" + j.toString() + i.toString()).html("×");
+		// 	$("#" + j.toString() + i.toString()).fadeIn(3000);
+		// 	i++;
+		// 	j++;
+		// } 
+
+
+
+
+		// for(var c = 1; c <= numbers; c++){
+		// 	$("#" + j.toString() + i.toString()).fadeOut("fast");
+		// 	$("#" + j.toString() + i.toString()).html("×");
+		// 	$("#" + j.toString() + i.toString()).fadeIn(3000);
+		// 	i--;
+		// 	j++;
+		// }
+		// i = 1;
+		// j = 1;
+	/*
+		
+								var num = 1;
+								for(j = 1; j <= n; j++){
+									for(i = 1; i <= n; i++){
+										var past_val = $("#" + j.toString() + i.toString()).html();
+										if(past_val !== "×"){
+											$("#" + j.toString() + i.toString()).fadeOut("fast");
+											$("#" + j.toString() + i.toString()).html(num);
+											$("#" + j.toString() + i.toString()).fadeIn(3000);
+										}
+										//alert(j.toString() + i.toString());
+										num++;
+									}
+									//j++;
+								}
+	*/
+	/*
+		var num = 1;
+		for(j = n; j >= 1; j--){
+			for(i = n; i >= 1; i--){
+				var past_val = $("#" + j.toString() + i.toString()).html();
+				if(past_val == "×"){
+					$("#" + j.toString() + i.toString()).fadeOut("fast");
+					$("#" + j.toString() + i.toString()).html(num);
+					$("#" + j.toString() + i.toString()).fadeIn(3000);
+				}
+				//alert(j.toString() + i.toString());			
+				num++;
+			}
+			//j++;
+		}
+	*/
+	}else{
+
+		var middle = (n+1)/2;
+		var i = middle;
+		var j = 1;
+		var tj,ti;
+		$("#" + j.toString() + i.toString()).fadeOut("fast");
+		$("#" + j.toString() + i.toString()).html("1");
+		$("#" + j.toString() + i.toString()).fadeIn(3000);
+		var counter = 2;
+		var p = setInterval(function(){
+				tj = j;
+				ti = i;
+				j -= 1;
+				i += 1;
+				if(j == 0){
+					j = n;
+				}
+				if(i > n){
+					i = 1;
+				}
+				var past_val = $("#" + j.toString() + i.toString()).html();
+				if(past_val !== "*"){
+					i = ti;
+					j = tj + 1;
+				}
+				$("#" + j.toString() + i.toString()).fadeOut("fast");
+				$("#" + j.toString() + i.toString()).html(counter);
+				if(i == ti){
+					$("#" + j.toString() + i.toString()).css('color', 'red');
+				}
+				$("#" + j.toString() + i.toString()).fadeIn(3000);	
+				if(counter == (n*n)){
+					clearInterval(p);
+				}
+				counter++;
+
+		}, 2000);
+
+	}	
+}
+
+</script>
