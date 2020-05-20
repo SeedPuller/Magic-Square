@@ -1,2 +1,2 @@
 # Magic-Square
-Magic Square Generator
+Magic Square Generator for my university Combinatorics course. what a spaghetti code :))))
